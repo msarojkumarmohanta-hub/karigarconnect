@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+@tailwind base; @tailwind components; @tailwind utilities;
+:root { color: #262523; background: #f7f1e8; font-family: 'DM Sans', sans-serif; }
+body { margin: 0; min-width: 320px; background: #f7f1e8; }
+* { box-sizing: border-box; }
+button, input, textarea, select { font: inherit; }
+.pattern { background-image: radial-gradient(#d49b43 1px, transparent 1px); background-size: 18px 18px; opacity: .12; }
+.display { font-family: 'DM Serif Display', serif; }
+.focus-ring:focus-visible { outline: 3px solid #d49b43; outline-offset: 3px; }

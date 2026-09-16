@@ -1,0 +1,14 @@
+const router = require('express').Router();
+const c = require('../controllers/auth.controller');
+const { authenticate } = require('../middleware/auth.middleware');
+const { body } = require('express-validator');
+const { expressValidation } = require('../middleware/request-validation.middleware');
+router.post('/register', [body('name').isString().trim().isLength({ min: 2, max: 100 }), body('email').isEmail().normalizeEmail(), body('password').isLength({ min: 8 }), body('role').optional().isIn(['artisan', 'buyer'])], expressValidation, c.register);
+router.post('/login', [body('email').isEmail().normalizeEmail(), body('password').isString().notEmpty()], expressValidation, c.login);
+router.post('/refresh', [body('refreshToken').isJWT()], expressValidation, c.refresh);
+router.post('/verify-email', [body('token').isString().isLength({ min: 10 })], expressValidation, c.verifyEmail);
+router.post('/request-password-reset', [body('email').isEmail().normalizeEmail()], expressValidation, c.requestPasswordReset);
+router.post('/forgot-password', [body('email').isEmail().normalizeEmail()], expressValidation, c.requestPasswordReset);
+router.post('/reset-password', [body('token').isString().isLength({ min: 10 }), body('password').isLength({ min: 8 })], expressValidation, c.resetPassword);
+router.post('/logout', authenticate, c.logout); router.get('/me', authenticate, c.me);
+module.exports = router;

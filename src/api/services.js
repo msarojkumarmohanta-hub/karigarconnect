@@ -1,0 +1,14 @@
+import api, { unwrap } from './axios'
+export const authApi = { login: (body) => api.post('/auth/login', body).then(unwrap), register: (body) => api.post('/auth/register', body).then(unwrap), me: () => api.get('/auth/me').then(unwrap), logout: () => api.post('/auth/logout').then(unwrap) }
+export const productApi = { list: (params) => api.get('/products', { params }).then((r) => ({ data: unwrap(r), pagination: r.data.pagination })), search: (params) => api.get('/search/products', { params }).then((r) => ({ data: unwrap(r), pagination: r.data.pagination })), get: (id) => api.get(`/products/${id}`).then(unwrap), mine: () => api.get('/products/my-products').then(unwrap), create: (body) => api.post('/products', body).then(unwrap), update: (id, body) => api.put(`/products/${id}`, body).then(unwrap), remove: (id) => api.delete(`/products/${id}`).then(unwrap), publish: (id) => api.patch(`/products/${id}/publish`).then(unwrap) }
+export const categoryApi = { list: () => api.get('/categories').then(unwrap) }
+export const artisanApi = { list: () => api.get('/artisans').then(unwrap), get: (id) => api.get(`/artisans/${id}`).then(unwrap), dashboard: () => api.get('/artisans/dashboard').then(unwrap), analytics: () => api.get('/artisans/analytics').then(unwrap), orders: () => api.get('/artisans/orders').then(unwrap), me: () => api.get('/artisans/me').then(unwrap), update: (body) => api.put('/artisans/me', body).then(unwrap) }
+export const orderApi = { list: () => api.get('/orders/my-orders').then(unwrap), get: (id) => api.get(`/orders/${id}`).then(unwrap), create: (body) => api.post('/orders', body).then(unwrap) }
+export const wishlistApi = { list: () => api.get('/wishlist').then(unwrap), add: (id) => api.post(`/wishlist/${id}`).then(unwrap), remove: (id) => api.delete(`/wishlist/${id}`).then(unwrap) }
+export const notificationApi = { list: () => api.get('/notifications').then(unwrap), read: (id) => api.patch(`/notifications/${id}/read`).then(unwrap), readAll: () => api.patch('/notifications/read-all').then(unwrap) }
+export const adminApi = { dashboard: () => api.get('/admin/dashboard').then(unwrap), users: () => api.get('/admin/users').then(unwrap), products: () => api.get('/admin/products').then(unwrap), orders: () => api.get('/admin/orders').then(unwrap) }
+export const aiApi = { catalog: (form) => api.post('/ai/catalog', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then(unwrap), description: (body) => api.post('/ai/product-description', body).then(unwrap), tags: (body) => api.post('/ai/generate-tags', body).then(unwrap), price: (body) => api.post('/ai/price-suggestion', body).then(unwrap) }
+export const membershipApi = {
+  createPayment: (body) => api.post('/payments/create-order', body).then(unwrap),
+  verifyPayment: (body) => api.post('/payments/verify', body).then(unwrap)
+}

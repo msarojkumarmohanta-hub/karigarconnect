@@ -1,0 +1,10 @@
+const router = require('express').Router();
+const c = require('../controllers/review.controller');
+const { authenticate } = require('../middleware/auth.middleware');
+const { body } = require('express-validator');
+const { expressValidation } = require('../middleware/request-validation.middleware');
+router.get('/products/:productId/reviews', c.list);
+router.post('/products/:productId/reviews', authenticate, [body('rating').isInt({ min: 1, max: 5 }), body('comment').isString().trim().isLength({ min: 1, max: 2000 })], expressValidation, c.create);
+router.put('/reviews/:id', authenticate, [body('rating').isInt({ min: 1, max: 5 }), body('comment').isString().trim().isLength({ min: 1, max: 2000 })], expressValidation, c.update);
+router.delete('/reviews/:id', authenticate, c.remove);
+module.exports = router;
