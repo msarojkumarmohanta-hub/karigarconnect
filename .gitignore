@@ -3,4 +3,6 @@ dist/
 backend/.env
 backend/uploads/
 coverage/
+__pycache__/
+.streamlit/secrets.toml
 *.log

@@ -34,6 +34,14 @@ const shareProduct = async (product) => {
 }
 const requiredStores = [
   { name: 'Bhubaneswar Store', city: 'Bhubaneswar, Odisha', latitude: 20.2961, longitude: 85.8245, distance: 0, addressKey: 'bhubaneswar' },
+  { name: 'Kolkata Store', city: 'Kolkata, West Bengal', latitude: 22.5726, longitude: 88.3639, distance: 0, addressKey: 'kolkata' },
+  { name: 'Jaipur Store', city: 'Jaipur, Rajasthan', latitude: 26.9124, longitude: 75.7873, distance: 0, addressKey: 'jaipur' },
+  { name: 'Delhi Store', city: 'New Delhi, Delhi', latitude: 28.6139, longitude: 77.209, distance: 0, addressKey: 'delhi' },
+  { name: 'Mumbai Store', city: 'Mumbai, Maharashtra', latitude: 19.076, longitude: 72.8777, distance: 0, addressKey: 'mumbai' },
+  { name: 'Hyderabad Store', city: 'Hyderabad, Telangana', latitude: 17.385, longitude: 78.4867, distance: 0, addressKey: 'hyderabad' },
+  { name: 'Bengaluru Store', city: 'Bengaluru, Karnataka', latitude: 12.9716, longitude: 77.5946, distance: 0, addressKey: 'bengaluru' },
+  { name: 'Chennai Store', city: 'Chennai, Tamil Nadu', latitude: 13.0827, longitude: 80.2707, distance: 0, addressKey: 'chennai' },
+  { name: 'Lucknow Store', city: 'Lucknow, Uttar Pradesh', latitude: 26.8467, longitude: 80.9462, distance: 0, addressKey: 'lucknow' },
   { name: 'West Bengal Store', city: 'West Bengal, India', latitude: 22.9868, longitude: 87.855, distance: 0, addressKey: 'west bengal' }
 ]
 const distanceBetween = (from, store) => {

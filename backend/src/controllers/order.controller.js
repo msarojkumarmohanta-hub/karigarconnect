@@ -3,6 +3,7 @@ const Order = require('../models/Order');
 const { notify } = require('../services/notification.service');
 const { success, created } = require('../utils/response');
 const offerRates = [10, 15, 20, 25, 30];
+const storeLocationKeys = ['bhubaneswar', 'kolkata', 'jaipur', 'delhi', 'mumbai', 'hyderabad', 'bengaluru', 'chennai', 'lucknow', 'west bengal'];
 const productOffer = (product) => Number.isFinite(Number(product.discountPercent)) ? Number(product.discountPercent) : offerRates[parseInt(String(product._id).slice(-1), 16) % offerRates.length];
 async function create(req, res, next) {
   const reserved = [];
@@ -10,7 +11,7 @@ async function create(req, res, next) {
     const requested = req.body.items || [];
     if (!requested.length) throw Object.assign(new Error('At least one item is required'), { status: 422, code: 'EMPTY_ORDER' });
     const shippingText = String(req.body.shippingAddress?.address || '').toLowerCase();
-    const namedStoreAddress = shippingText.includes('bhubaneswar') || shippingText.includes('west bengal');
+    const namedStoreAddress = storeLocationKeys.some((locationKey) => shippingText.includes(locationKey));
     if (req.body.quickDelivery && !namedStoreAddress && (!Number.isFinite(Number(req.body.quickDeliveryDistance)) || Number(req.body.quickDeliveryDistance) > 50)) {
       throw Object.assign(new Error('Quick delivery is available only within 50 km of a store'), { status: 422, code: 'QUICK_DELIVERY_UNAVAILABLE' });
     }
