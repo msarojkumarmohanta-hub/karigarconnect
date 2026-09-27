@@ -11,7 +11,7 @@ try:
     configured_api_url = st.secrets.get("API_URL", "")
 except (FileNotFoundError, AttributeError):
     configured_api_url = ""
-API_URL = (configured_api_url or os.getenv("KARIGARCONNECT_API") or "http://localhost:5000/api/v1").rstrip("/")
+API_URL = (configured_api_url or os.getenv("KARIGARCONNECT_API") or "").rstrip("/")
 
 st.markdown(
     """
@@ -41,6 +41,11 @@ class APIError(RuntimeError):
 
 
 def api(method: str, path: str, *, params: dict | None = None, body: dict | None = None, files: dict | None = None) -> Any:
+    if not API_URL:
+        raise APIError(
+            'API_URL is not configured. In Streamlit Cloud, open app Settings > Secrets and add '
+            'API_URL = "https://<your-public-backend>/api/v1".'
+        )
     headers = {"Authorization": f"Bearer {st.session_state.token}"} if st.session_state.token else {}
     try:
         response = requests.request(
